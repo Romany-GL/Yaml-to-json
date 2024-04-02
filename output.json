@@ -1,3 +1,108 @@
 {
-  "key": "value"
+  "key": "value",
+  "special_chars": "!@#$%^&*()_+ must be enclosed in quotes",
+  "special_characters": "[ John ] & { Jane } - <Doe> - $12.34 * 51% = ?100",
+  "escaped_chars": "☺ ☻ \n",
+  "array": [
+    "item1",
+    "item2",
+    "item3"
+  ],
+  "array2": [
+    "item1",
+    "item2",
+    "item3"
+  ],
+  "array_3": [
+    "item 1",
+    {
+      "object_1": {
+        "key1": "value1",
+        "key2": "value2",
+        "key3": "value3"
+      }
+    },
+    [
+      {
+        "nested array 1": [
+          "item1",
+          "item2",
+          "item 3"
+        ]
+      },
+      {
+        "nested array in array": [
+          "item1",
+          "item2",
+          "item3"
+        ]
+      }
+    ],
+    [
+      {
+        "nested array 2": [
+          "item1",
+          "item2",
+          "item3"
+        ]
+      }
+    ]
+  ],
+  "array_of_objects": [
+    {
+      "object 1": {
+        "key1": "value1"
+      }
+    },
+    {
+      "object 2": {
+        "key2": "value2"
+      }
+    },
+    [
+      {
+        "array_2": {
+          "object_nested_1": {
+            "key1": "value1",
+            "key2": "value2"
+          }
+        }
+      }
+    ]
+  ],
+  "boolean_key": "true,",
+  "number_key": 123,
+  "null_value": null,
+  "null value 2": null,
+  "object 1": {
+    "key1": "value1",
+    "key2": "value2",
+    "key3": "value3"
+  },
+  "object_2": {
+    "key1": "value1",
+    "key2": "value2",
+    "key3": "value3"
+  },
+  "Nested_object": {
+    "key1": "value1",
+    "nested object 1": {
+      "key1": "value1",
+      "key2": "value2",
+      "key3": "value3"
+    },
+    "nested object 2": {
+      "key1": "value1",
+      "key2": "value2",
+      "key3": "value3"
+    }
+  },
+  "literal_block": "first line\nsecond line\n",
+  "folded_block": "first line second line\n",
+  "literal_block_remove_last_n": "first line\nsecond line",
+  "folded_block_remove_last_n": "first line second line\n# |+ and >+ keeps trailing blank lines (also called literal/block \"keep\")",
+  "literal_block_keep_last_n": "first line\nsecond line\n\n\n",
+  "folded_block_keep_last_n": "first line second line\n\n",
+  "literal_block_add_space_on_start": " first line\n second line\n",
+  "scientific_notation": 1000000000000
 }
