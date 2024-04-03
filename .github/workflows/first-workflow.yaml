@@ -12,7 +12,7 @@ jobs:
           echo The script is running on unbuntu
           node -v
           npm -v
-          echo "::inputs:: mulit line script completed succesfully"
+          echo ::notice title='this is notice title':: multi line script completed succesfully
   parrallel-job-macos:
     runs-on: macos-latest
     steps:
@@ -38,5 +38,7 @@ jobs:
     steps:
       - name: print messages
         run: |
-          echo '::error:: this is an error message'
-          echo ":: Warning title: Warnnig message:: This is warnnig message"
+          echo ::error::title=this is an error message
+          echo ::error file={name},line={line},endLine={endLine},title={title}::{message}
+          echo ::Warning title=Warnnig message:: This is warnnig message
+          echo ::add-mask::romany
