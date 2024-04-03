@@ -31,4 +31,4 @@ jobs:
     needs: parrallel-job-macos
     steps:
       - name: get System information
-        run: system_profiler SPSoftwareDataType SPHardwareDataType
+        run: system_profiler SPHardwareDataType SPSoftwareDataType
