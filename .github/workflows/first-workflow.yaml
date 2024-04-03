@@ -33,12 +33,3 @@ jobs:
     steps:
       - name: get System information
         run: system_profiler SPHardwareDataType SPSoftwareDataType
-  example_of_communicating_with_runners:
-    runs-on: ubuntu-latest
-    steps:
-      - name: print messages
-        run: |
-          echo ::error::title=this is an error message
-          echo ::error file={name},line={line},endLine={endLine},title={title}::{message}
-          echo ::Warning title=Warnnig message:: This is warnnig message
-          echo ::add-mask::romany
