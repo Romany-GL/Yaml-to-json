@@ -19,10 +19,16 @@ jobs:
         run: echo $PATH
       - name: View SW version
         run: sw_vers
-  depenedent-job:
+  depenedent-job_windows:
     runs-on: windows-latest
-    needs: [run-shell-commands, parrallel-job-macos]
+    needs: [run-shell-commands]
 
     steps:
       - name: run depenedent job on windows
         run: Write-Host "Hello, world!"
+  dependent_job_mac:
+    runs-on: macos-latest
+    needs: parrallel-job-macos
+    steps:
+      - name: get System information
+        run: system_profiler SPSoftwareDataType SPHardwareDataType
