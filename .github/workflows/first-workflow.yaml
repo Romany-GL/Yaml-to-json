@@ -12,3 +12,17 @@ jobs:
           echo The script is running on unbuntu
           node -v
           npm -v
+  parrallel-job-macos:
+    runs-on: macos-latest
+    steps:
+      - name: View the path
+        run: echo $PATH
+      - name: View SW version
+        run: sw_vers
+  depenedent-job:
+    runs-on: windows-latest
+    needs: [run-shell-commands, parrallel-job-macos]
+
+    steps:
+      - name: run depenedent job on windows
+        run: Write-Host "Hello, world!"
