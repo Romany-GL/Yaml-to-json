@@ -1,0 +1,24 @@
+name: commuincate with runners flow
+on: [pull_request]
+jobs:
+  print-error-message:
+    runs-on: ubuntu-latest
+    steps:
+      - name: print-error-message
+        run: |
+          echo "::error:: This an error message"
+          echo "::error title=this is a title of error messsage, file=convert.ts:: error message body"
+      - name: print notice message
+        run: |
+          echo "::notice title=thid is a notice title:: this is a notice messsage "
+      - name: group of logs
+        run: |
+          echo "::group title=Group-Logs ::This is a group message"
+          echo "This is a group message"
+          echo "::endgroup::"
+      - name: Masking-Logs
+        run: |
+          echo "::add-mask title=Mask message:: MY_SECRET"
+      - name: print-my-secret
+        run: |
+          echo  "MY_SECRET"
