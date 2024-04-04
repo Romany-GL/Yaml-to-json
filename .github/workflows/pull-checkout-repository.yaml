@@ -1,7 +1,7 @@
 name: pull and checkout repository
 on: [pull_request]
 jobs:
-  pull-repo-and-checkout:
+  pull-repo-and-checkout-manually:
     runs-on: ubuntu-latest
     steps:
       - name: list files before pull
@@ -13,5 +13,14 @@ jobs:
           git remote add origin "https://$GITHUB_ACTOR:${{secrets.GITHUB_TOKEN}}@github.com/$GITHUB_REPOSITORY.git"
           git fetch origin
           git checkout main
+      - name: list files after checkout
+        run: ls -a
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: list before checkout
+        run: ls -a
+      - name: checkout
+        uses: actions/checkout@v4
       - name: list files after checkout
         run: ls -a

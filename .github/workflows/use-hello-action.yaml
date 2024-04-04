@@ -1,0 +1,17 @@
+name: how to use simple action
+on: [pull_request]
+jobs:
+  print-hello-action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get who to greet
+        id: greet
+        uses: actions/hello-world-javascript-action@main
+        with:
+          who-to-greet: Romany
+      - name: log output greeting
+        run: |
+          echo "${{steps.greet.outputs.time}}"
+          echo "::warning title: Conclusion::>>> ${{steps.greet.conclusion}}"
+          echo "::notice title: Conclusion::>>> ${{steps.greet.conclusion}}"
+          echo "::inputs::>> ${{steps.greet.outcome}}"
