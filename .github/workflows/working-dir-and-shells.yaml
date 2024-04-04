@@ -1,0 +1,39 @@
+name: Working Dir and Shells workflow
+on: [pull_request]
+#  if we want to use bash as the default terminal on Windows and Mac
+# defaults:
+#   run:
+#     shell: bash
+jobs:
+  #   will print WD as  "/home/runner/work/Yaml-to-json/Yaml-to-json"
+  display-WD-info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: print working directory & list files
+        run: |
+          pwd  
+          ls -a
+      - name: print env variables
+        run: |
+          echo $GITHUB_SHA
+          echo "Repoistory::>>" $GITHUB_REPOSITORY
+          echo "Workspace::>>" $GITHUB_WORKSPACE
+  # change the working directory exampole and print it
+  change-WD:
+    runs-on: ubuntu-latest
+    steps:
+      - name: change Working directory
+        working-directory: /home/runner
+        run: pwd
+
+      # print WD on windows using Powershell commands as it the default terminal
+  display-WD-on-Windows:
+    runs-on: windows-latest
+    steps:
+      - name: print working directory and list files
+        run: |
+          Get-Location
+          dir
+          echo $env:GITHUB_SHA
+          echo $env:GITHUB_REPOISTORY
+          echo $env:GITHUB_WORKSPACE
