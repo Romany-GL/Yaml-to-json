@@ -18,7 +18,8 @@ jobs:
           echo $GITHUB_SHA
           echo "Repoistory::>>" $GITHUB_REPOSITORY
           echo "Workspace::>>" $GITHUB_WORKSPACE
-  # change the working directory exampole and print it
+
+    # change the working directory exampole and print it. # /home/runner
   change-WD:
     runs-on: ubuntu-latest
     steps:
