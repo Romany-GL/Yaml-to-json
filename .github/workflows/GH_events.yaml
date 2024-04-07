@@ -1,0 +1,13 @@
+name: GH Events Exapmle
+on:
+  push:
+    branches:
+      - main
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: view GH_SHA
+        run: echo "GITHUB_SHA last comment::>>" $GITHUB_SHA
+      - name: view GH ref
+        run: echo "GH REF of the branch" $GITHUB_REF
