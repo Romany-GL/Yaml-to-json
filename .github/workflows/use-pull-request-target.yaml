@@ -1,3 +1,4 @@
+# pull_request_target is similar to pull_request but it uses the wf code from the main branch not the mofified, to prevent malecious code ran from forked branches
 name: use-pull-request-target
 on:
   pull_request_target:

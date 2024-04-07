@@ -1,0 +1,14 @@
+name: run-workflow-baseod-on-another-workflow
+on:
+  workflow_run:
+    workflows: [use-pull-request-target]
+    types: [completed]
+jobs:
+  run-after-gh-events-completed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: log-success-message
+        uses: actions/github-script@v7
+        with:
+          script: |
+            console.log("this WF runs after the GH EVENT EXAMPLE WF completed")
