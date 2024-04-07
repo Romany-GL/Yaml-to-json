@@ -2,8 +2,6 @@ name: GH-Events-Exapmle
 on:
   pull_request:
     types: [opened, reopened, assigned, synchronize] #optional to set the types of the event, if not specified default is all types.
-    branches:
-      - main
   issues:
     types: [opened, edited, closed]
 
