@@ -1,5 +1,5 @@
 # to manually run a workflow manual only, we use the event workflow_dispatch
-name: manual_deploy to stage env
+name: manual-deploy
 on:
   workflow_dispatch:
     inputs:
