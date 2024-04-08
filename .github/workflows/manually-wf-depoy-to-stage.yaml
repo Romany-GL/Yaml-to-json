@@ -5,6 +5,8 @@ on:
     inputs:
       Developer_name:
         type: string
+        required: true
+        default: Romany Sefen
         description: Name of the developer runnig the WF.
 jobs:
   run-a-manual-job:
