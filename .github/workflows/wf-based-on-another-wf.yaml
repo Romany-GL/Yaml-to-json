@@ -1,3 +1,4 @@
+# https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#workflow_run
 name: run-workflow-baseod-on-another-workflow
 on:
   workflow_run:
@@ -12,3 +13,10 @@ jobs:
         with:
           script: |
             console.log("this WF runs after the GH EVENT EXAMPLE WF is completed")
+
+      - name: run-on-success
+        if: ${{ github.event.workflow_run.conclusion == 'success'}}
+        run: echo 'The triggering workflow passed'
+      - name: run on failure
+        if: ${{github.event.workflow_run.conclusion =='failure' }}
+        run: echo 'The triggering workflow failed'
