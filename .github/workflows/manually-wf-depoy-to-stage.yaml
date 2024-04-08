@@ -1,15 +1,22 @@
 # to manually run a workflow manual only, we use the event workflow_dispatch
-name: deploy to stage env
+name: manual_deploy to stage env
 on:
   workflow_dispatch:
     inputs:
       Developer_name:
         type: string
+        required: true
+        default: Romany Sefen
         description: Name of the developer runnig the WF.
+      Years:
+        type: number
+        required: true
+        default: 45
+        description: How many years you have been in the company?
 jobs:
   run-a-manual-job:
     runs-on: ubuntu-latest
     steps:
       - name: deploying to stage env
         run: |
-          echo deploynig to stg environment
+          echo "Developer name running this workflow is: ${{inputs.Developer_name}}"
