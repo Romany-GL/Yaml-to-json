@@ -2,6 +2,10 @@
 name: deploy to stage env
 on:
   workflow_dispatch:
+    inputs:
+      Developer_name:
+        type: string
+        description: Name of the developer runnig the WF.
 jobs:
   run-a-manual-job:
     runs-on: ubuntu-latest

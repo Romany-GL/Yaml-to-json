@@ -1,5 +1,5 @@
 # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#workflow_run
-name: run-workflow-baseod-on-another-workflow
+name: run-workflow-based-on-another-workflow
 on:
   workflow_run:
     workflows: [use-pull-request-target, GH-Events-Exapmle]
