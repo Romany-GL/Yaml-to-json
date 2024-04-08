@@ -13,6 +13,14 @@ on:
         required: true
         default: 45
         description: How many years you have been in the company?
+      your_Gender:
+        type: choice
+        required: true
+        default: 'Male'
+        options:
+          - Male
+          - Female
+          - Not to Say
 jobs:
   run-a-manual-job:
     runs-on: ubuntu-latest
