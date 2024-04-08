@@ -28,5 +28,5 @@ jobs:
       - name: deploying to stage env
         run: |
           echo "Developer name running this workflow is: ${{inputs.Developer_name}}"
-          echo "You have been for ${{inputs.Years}} years in the company."
+          echo "::warning title="years in the company":: You have been for ${{inputs.Years}} years in the company."
           echo "Your gender is ${{inputs.your_Gender}}"
