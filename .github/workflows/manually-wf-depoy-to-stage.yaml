@@ -1,0 +1,11 @@
+# to manually run a workflow manual only, we use the event workflow_dispatch
+name: deploy to stage env
+on:
+  workflow_dispatch:
+jobs:
+  run-a-manual-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploying to stage env
+        run: |
+          echo deploynig to stg environment
