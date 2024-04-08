@@ -1,7 +1,7 @@
 name: run-workflow-baseod-on-another-workflow
 on:
   workflow_run:
-    workflows: [use-pull-request-target]
+    workflows: [use-pull-request-target, GH-Events-Exapmle]
     types: [completed]
 jobs:
   run-after-gh-events-completed:
