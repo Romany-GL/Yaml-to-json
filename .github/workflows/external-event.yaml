@@ -1,0 +1,12 @@
+# run the workflow based on an external event, we call GH rest API to trigger the WF based on some values sent in the request# We use the repository_dispatch to create a wf that triggered based on some data sent through the GH rest api
+# Docs:  https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#repository_dispatch
+name: external-event-wf
+on:
+  repository_dispatch:
+    types: [build] # thisis the event_type value to be sent in the API call body to trigger the WF
+jobs:
+  echo-payload-sent-in-the-event:
+    runs-on: ubuntu-latest
+    steps:
+      - name: echo-event-client-payload
+        run: echo ${{github.event.client_payload.message}}
