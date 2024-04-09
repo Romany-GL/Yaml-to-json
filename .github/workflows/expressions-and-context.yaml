@@ -15,3 +15,6 @@ jobs:
         id: context
         run: |
           echo '${{toJson(github)}}'
+          echo 'Secrets: >> ${{toJson(secrets)}}}'
+          echo 'Job: >> ${{toJson(job)}}}''
+          echo 'Job.status: >> ${{toJson(job.status)}}}''
