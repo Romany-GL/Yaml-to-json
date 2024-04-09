@@ -3,7 +3,8 @@ name: 'Close stale issues and PRs'
 on:
   schedule:
     - cron: '01 15 * * *' #https://crontab.guru/
-    - cron: '01 * * * *'
+    - cron: '01 10 * 1-12 1' # At 10:01 on Monday in every month from January through December.
+    - cron: '* * * * *' # every minute
 jobs:
   stale:
     runs-on: ubuntu-latest
@@ -11,6 +12,9 @@ jobs:
       - uses: actions/stale@v9
         with:
           stale-issues-message: 'this issue is stale because it has been open more the 3 days with no activity'
-          days-before-stale: 1
+          days-before-issue-stale: 3
+          days-before-pr-stale: 1
           days-before-close: 1
+          days-before-issue-close: 2
+          days-before-pr-close: 3
           stale-issue-label: 'no-activity'
