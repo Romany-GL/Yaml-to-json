@@ -1,0 +1,17 @@
+name: expressions and Context
+on: [push]
+run-name: 'Expressions'
+jobs:
+  using-expressions-and-context:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Expressions
+        id: expressions
+        run: |
+          echo "'string' == 'String' ::>>" ${{'string' == 'String'}}
+          echo "true || (false && true) ::>>"${{ true || (false && true) }}
+          echo "1>2::>>" ${{1>2}}
+      - name: Context
+        id: context
+        run: |
+          echo '${{toJson(github)}}'
