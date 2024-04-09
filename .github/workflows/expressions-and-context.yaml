@@ -1,4 +1,4 @@
-# use expressions, Context and functions in WF
+# use expressions, Context, if statement and functions in WF
 
 name: expressions and Context
 on: [push, issues, pull_request]
@@ -6,7 +6,9 @@ run-name: '${{github.actor}} runs ${{github.workflow}} on event: ${{github.event
 jobs:
   using-expressions-and-context:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    # contains method is github fn the takes 2 arguments (array, value) and return boolean
+    # formJson is a GH fn that convert an string to json
+    if: contains(fromJson('["pull_request", "push"]'), github.event_name) || github.event_name == 'push'
     steps:
       - name: Expressions
         id: expressions
@@ -23,3 +25,8 @@ jobs:
           echo 'Job: >> ${{toJson(job)}}}'
           echo 'Job.status: >> ${{toJson(job.status)}}}'
           echo 'runner info::>> ${{toJson(runner)}}'
+      - name: print functions result
+        if: contains(fromJson('["push"]'), github.event_name)
+        run: |
+          echo 'this step will run if github.event_name is equal to push'
+          echo "contains result:>> ${{contains(fromJson('["pull_request", "push"]'), github.event_name)}}"
