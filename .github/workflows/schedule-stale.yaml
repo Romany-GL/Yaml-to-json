@@ -1,0 +1,16 @@
+# run a wf on a scheduled time, in this WF we mark issu as stale after a certain time
+name: 'Close stale issues and PRs'
+on:
+  schedule:
+    - cron: '01 15 * * *' #https://crontab.guru/
+    - cron: '01 * * * *'
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v9
+        with:
+          stale-issues-message: 'this issue is stale because it has been open more the 3 days with no activity'
+          days-before-stale: 1
+          days-before-close: 1
+          stale-issue-label: 'no-activity'
