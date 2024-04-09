@@ -1,3 +1,4 @@
+# Use events and define types of events
 name: GH-Events-Exapmle
 on:
   pull_request:

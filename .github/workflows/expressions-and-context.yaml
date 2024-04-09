@@ -1,9 +1,12 @@
+# use expressions, Context and functions in WF
+
 name: expressions and Context
-on: [push]
+on: [push, issues, pull_request]
 run-name: '${{github.actor}} runs ${{github.workflow}} on event: ${{github.event_name}} '
 jobs:
   using-expressions-and-context:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
     steps:
       - name: Expressions
         id: expressions
@@ -13,6 +16,7 @@ jobs:
           echo "1>2::>>" ${{1>2}}
       - name: Context
         id: context
+        if: github.event_name == 'pull_request'
         run: |
           echo '${{toJson(github)}}'
           echo 'Secrets: >> ${{toJson(secrets)}}}'

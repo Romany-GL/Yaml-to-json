@@ -10,3 +10,11 @@ jobs:
     steps:
       - name: echo-event-client-payload
         run: echo ${{github.event.client_payload.message}}
+# https://api.github.com/repos/{Romany-GL}/{yaml-to-json}/dispatches
+# Payload example
+#         {
+#   "event_type": "build",
+#   "client_payload": {
+#  "message": "this wf triggered because we sent an event_name build as defined in the wf yaml file"
+#   }
+# }
