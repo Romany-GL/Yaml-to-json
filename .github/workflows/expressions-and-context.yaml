@@ -1,6 +1,6 @@
 name: expressions and Context
 on: [push]
-run-name: 'Expressions'
+run-name: '${{github.actor}} runs ${{github.workflow}} for event ${{github.event_name}} '
 jobs:
   using-expressions-and-context:
     runs-on: ubuntu-latest
