@@ -1,5 +1,6 @@
 # use expressions, Context, if statement and functions in WF
-
+# Here we use the object filter syntax * to apply filter on objects
+# Docs: https://docs.github.com/en/actions/learn-github-actions/expressions#object-filters
 name: expressions and Context
 on: [push, issues, pull_request]
 run-name: '${{github.actor}} runs ${{github.workflow}} on event: ${{github.event_name}} '
@@ -37,4 +38,4 @@ jobs:
         run: |
           echo 'this will run if anissue is created with a label of bug'
           echo 'contains(github.event.issue.labels.*.name, 'bug')::>> ${{contains(github.event.issue.labels.*.name, 'bug')}}'
-          echo ${{ join(github.event.issue.labels.*.name,  ' ,')}}
+          echo ${{ join(github.event.issue.labels.*.name,  ', ')}}

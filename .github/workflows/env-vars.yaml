@@ -1,0 +1,34 @@
+name: Envrinoment Varaibles
+on: [push]
+env:
+  DAY_OF_WEEK: MONDAY
+jobs:
+  env-vars-and-context:
+    runs-on: ubuntu-latest
+    env:
+      YOUR_NAME: ROMANY SEFEN
+    steps:
+      - name: LOG GIT_REF AS Var on main only
+        if: github.ref_name == 'main'
+        env:
+          MONTH: APRIL
+
+        run: |
+          echo $GITHUB_REF
+          echo 'DAY Of the Week var::>> ' $DAY_OF_WEEK  
+          echo "access env defined in the step Month" : $MONTH
+      - name: LOG github.ref
+        run: |
+          echo `${{github.ref}}`
+      - name: print all vars
+        env:
+          DATE: 27
+          DAY_OF_WEEK: SATURDAY
+        #access variables defined on the WF level and steps level
+        # we can access vars by two ways using  context: env.${varname} or use runner  ${varname}
+        run: |
+          echo "Overridden JOB level env var day_of_week::>>" $DAY_OF_WEEK
+          echo "step level var: DATE" : $DATE
+          echo "try to access env defined in other step:: month " $MONTH
+          echo 'use context to print env variables: ${{env.DAY_OF_WEEK}}'
+          echo "your name defined in the job level is::>>" ${{env.YOUR_NAME}}
