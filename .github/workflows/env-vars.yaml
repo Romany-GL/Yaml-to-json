@@ -32,6 +32,9 @@ jobs:
           echo "try to access env defined in other step:: month " $MONTH
           echo 'use context to print env variables: ${{env.DAY_OF_WEEK}}'
           echo "your name defined in the job level is::>>" ${{env.YOUR_NAME}}
+
+  # Defining env variables in the bash terminal and writing them to the GITHUB_ENV environment file to dynamically create env vars and use it in the next steps
+  # docs: writing this to the GITHUB_ENV environment file
   define-env-vars:
     runs-on: ubuntu-latest
     steps:
@@ -39,8 +42,19 @@ jobs:
         run: |
           echo "MY_NEW_VAR=$(date)" >> "$GITHUB_ENV"
           echo "RANDOM_VAR=$RANDOM" >> "$GITHUB_ENV"
+
+      - name: define multi-lines  env variables
+        run: |
+          DELIMITER=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "RANDOM_JOKE<<$DELIMITER" >> "$GITHUB_ENV"
+          echo "Here is a joke: " >> "$GITHUB_ENV"
+          curl -s https://icanhazdadjoke.com/ >> "$GITHUB_ENV"
+          echo "" >> "$GITHUB_ENV"
+          echo "$DELIMITER" >> "$GITHUB_ENV"
+
       - name: print custom defined vars
         run: |
           echo "NEW VAR::>>" $MY_NEW_VAR
           echo "RANDOM_DEFINED_VAR::>>" $RANDOM_VAR
           echo "GITHHUB_ENV ::>>" $GITHUB_ENV
+          echo "RANDOM_JOk::>>" $RANDOM_JOKE
