@@ -1,3 +1,5 @@
+# set env vars
+#   # Defining env variables in the bash terminal and writing them to the GITHUB_ENV environment file to dynamically create env vars and use it in the next steps
 name: Envrinoment Varaibles
 on: [push]
 env:
