@@ -32,3 +32,15 @@ jobs:
           echo "try to access env defined in other step:: month " $MONTH
           echo 'use context to print env variables: ${{env.DAY_OF_WEEK}}'
           echo "your name defined in the job level is::>>" ${{env.YOUR_NAME}}
+  define-env-vars:
+    runs-on: ubuntu-latest
+    steps:
+      - name: define new-env-var
+        run: |
+          echo "MY_NEW_VAR=$(date)" >> "$GITHUB_ENV"
+          echo "RANDOM_VAR=$RANDOM" >> "$GITHUB_ENV"
+      - name: print custom defined vars
+        run: |
+          echo "NEW VAR::>>" $MY_NEW_VAR
+          echo "RANDOM_DEFINED_VAR::>>" $RANDOM_VAR
+          echo "GITHHUB_ENV ::>>" $GITHUB_ENV

@@ -1,4 +1,6 @@
 # source : https://learnxinyminutes.com/docs/yaml/
+# advanced yaml syntax: https://yaml-multiline.info/
+#https://www.educative.io/blog/advanced-yaml-syntax-cheatsheet
 key: value
 special_chars: "!@#$%^&*()_+ must be enclosed in quotes"
 special_characters: "[ John ] & { Jane } - <Doe> - $12.34 * 51% = ?100"
