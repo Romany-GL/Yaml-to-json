@@ -1,4 +1,5 @@
 # GITHUB_TOKEN must have a wrie permmsion to add comments
+# table 0f permissions: https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token
 name: add comment to PR and issues when opened
 on:
   pull_request:
