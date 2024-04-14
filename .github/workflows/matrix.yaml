@@ -1,0 +1,19 @@
+# A matrix strategy lets you use variables in a single job definition
+# to automatically create multiple job runs
+# that are based on the combinations of the variables
+# Docs: https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
+
+name: use Matrix to run jobs
+on: [push]
+jobs:
+  run-job-using-node-matrix:
+    strategy:
+      matrix:
+        node-version: [18, 20]
+    runs-on: ubuntu-latest
+    steps:
+      - name: print node version
+        run: node -v
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{matrix.node-version}}

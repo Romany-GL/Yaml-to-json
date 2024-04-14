@@ -3,9 +3,11 @@ on: [push]
 jobs:
   run-on-status-check:
     runs-on: ubuntu-latest
+    timeout-minutes: 1
     steps:
       - name: sleep the process
         run: sleep 5
+        timeout-minutes: 1
 
       #   - name: cause failure and exit job
       #     run: exit 1
@@ -20,12 +22,13 @@ jobs:
 
       - name: mock-step-to-fail-and-contniue
         id: must-pass
+        continue-on-error: true
         run: |
           echo 'this is mock step must pass to run he next step'
           exit 1
 
       - name: run if must-pass step is failed
-        if: failure() && steps.must-pass.outcome == 'failure'
+        if: failure() && steps.must-pass.conclusion == 'failure'
         run: |
           echo 'conclusion ::>>' ${{steps.must-pass.conclusion}}
           echo 'outcome ::>>' ${{steps.must-pass.outcome}}
@@ -45,7 +48,9 @@ jobs:
 
       - name: run on cancel
         if: cancelled()
-        run: echo "this steop run on cancelled the WF"
+        run: |
+          echo "this steop run on cancelled the WF"
+          echo "this steop run if time out exceeded"
 
   job-2-needs-job-1:
     runs-on: ubuntu-latest
