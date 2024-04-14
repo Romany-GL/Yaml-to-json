@@ -1,9 +1,13 @@
-# pull_request_target is similar to pull_request but it uses the wf code from the main branch not the mofdfied, to prevent malecious code ran from forked branches
-name: use-pull-request-target
+# GITHUB_TOKEN must have a wrie permmsion to add comments
+name: add comment to PR and issues when opened
 on:
-  pull_request_target:
-    types: [opened, closed, reopened, synchronize, assigned, unassigned]
-
+  pull_request:
+    types: [opened]
+  issues:
+    types: [opened, closed]
+permissions:
+  pull-requests: write
+  issues: write
 jobs:
   add-a-comment-to-PR:
     runs-on: ubuntu-latest
@@ -16,5 +20,5 @@ jobs:
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: '👋 Thanks for reporting!'
+                body: '👋 Thanks for your pull request- this an auto message!'
             })
