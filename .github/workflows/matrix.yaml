@@ -3,17 +3,24 @@
 # that are based on the combinations of the variables
 # Docs: https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
 
+# fail-fast on the strategy/matrix will affect if the next job shuold run if failed or not.
 name: use Matrix to run jobs
 on: [push]
 jobs:
   run-job-using-node-matrix:
+    continue-on-error: false
     strategy:
       matrix:
         node-version: [18, 20]
+      fail-fast: false
     runs-on: ubuntu-latest
     steps:
       - name: print node version
         run: node -v
+
       - uses: actions/setup-node@v4
         with:
           node-version: ${{matrix.node-version}}
+
+      - name: print node version after matrix
+        run: node -v

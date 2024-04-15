@@ -1,0 +1,45 @@
+# include will allow us to modify the exisiting combination if the key matched, or add a new combination if not matched
+
+name: Advanced-Matrix-configuration
+on: [pull_request]
+jobs:
+  run-multi-dimension-matrix:
+    continue-on-error: ${{ matrix.node-version == 20 }}
+    runs-on: ${{matrix.os}}
+    strategy:
+      max-parallel: 3
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        node-version: [10, 18, 20]
+        include:
+          # will run only on combination that has os:macos-latest, and modify it to add the is-mac:true key
+          - os: macos-latest
+            is-mac: true
+          # will run only on combination that has os:ubuntu-latest, and modify it to add the is-mac:false key
+          - os: ubuntu-latest
+            is-mac: false
+          # will add a new combination, as it not match with any key in the original os
+          - os: windows-latest
+            is-mac: false
+            node-version: 16
+          # windows-latest is not original, so it cannot be modified a new combination will be created
+          - os: windows-latest
+            test: non-original
+            message: cannot add to non original
+        # dont run if combination is {os:macos-latest, node-version:10}
+        exclude:
+          - os: macos-latest
+            node-version: 10
+
+    steps:
+      - name: print node -v
+        run: node -v
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{matrix.node-version}}
+      - name: print system config if macos
+        if: ${{matrix.is-mac }}
+        run: System_profiler  SPHardwareDataType  SPSoftwareDataType
+      - name: print matrix
+        run: echo "matrix::>> ${{toJson(matrix)}}"
