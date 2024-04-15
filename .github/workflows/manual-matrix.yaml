@@ -40,7 +40,7 @@ jobs:
     #     node-version: ${{fromJson(inputs.node-version)}}
     steps:
       - name: generate matrix array from inputs
-        uses: actions/@github-script@v7
+        uses: actions/github-script@v7
         with:
           script: |
             console.log("to do")
