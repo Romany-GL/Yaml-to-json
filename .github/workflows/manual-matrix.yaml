@@ -24,10 +24,6 @@ on:
 jobs:
   run-dynamic-matrix-manually:
     runs-on: ubuntu-latest
-    # strategy:
-    #   matrix:
-    #     os: ${{inputs.os}}
-    #     node_version: ${{inputs.node_version}}
     steps:
       - name: print node version
         run: node -v
