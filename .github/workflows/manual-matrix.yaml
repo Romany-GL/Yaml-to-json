@@ -1,6 +1,6 @@
 # trigger a WF by calling the GH REST API and send the matrix in the payload
 
-name: manul trigger matrix
+name: manul-trigger-matrix
 on:
   workflow_dispatch:
     inputs:
@@ -23,7 +23,7 @@ on:
 
 jobs:
   run-dynamic-matrix-manually:
-    runs-on: ${{matrix.os }}
+    runs-on: ${{matrix.os}}
     strategy:
       matrix:
         os: ${{inputs.os}}
