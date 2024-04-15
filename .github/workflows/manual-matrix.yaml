@@ -34,7 +34,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node_version: 20
+          node-version: 20
       - name: print node version after matrix
         run: node -v
       - name: print inputs
