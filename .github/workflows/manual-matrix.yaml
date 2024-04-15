@@ -23,17 +23,19 @@ on:
 
 jobs:
   run-dynamic-matrix-manually:
-    runs-on: ${{matrix.os}}
-    strategy:
-      matrix:
-        os: ${{inputs.os}}
-        node_version: ${{inputs.node_version}}
+    runs-on: ubuntu-latest
+    # strategy:
+    #   matrix:
+    #     os: ${{inputs.os}}
+    #     node_version: ${{inputs.node_version}}
     steps:
       - name: print node version
         run: node -v
 
       - uses: actions/setup-node@v4
         with:
-          node_version: ${{matrix.node_version}}
+          node_version: 20
       - name: print node version after matrix
         run: node -v
+      - name: print inputs
+        run: echo "inputs :::>>>" ${{toJson(inputs)}}
