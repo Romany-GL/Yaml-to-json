@@ -15,19 +15,42 @@ on:
         default: '18,20'
 
 jobs:
-  run-dynamic-matrix-manually:
-    runs-on: ${{matrix.os}}
-    strategy:
-      matrix:
-        os: ${{ fromJson(inputs.os) }}
-        node-version: ${{fromJson(inputs.node-version)}}
+  prepare-matrix:
+    runs-on: ubuntu-latest
     steps:
+      # create an output from this step and write it to the $GITHUB_OUTPUT, so we can access it in steps.outputs:
+      # this step will create an output step-output with value= somevalue, and we can acess it from steps.outputs:
+
+      - name: prepare matrix array manually
+        id: step-1
+        run: echo "step-output=someValue" >> $GITHUB_OUTPUT
+      - name: prepare matrix array manually
+        id: step-2
+        run: echo "step-output=someValue2" >> $GITHUB_OUTPUT
+      - name: print outputs from steps
+        run: |
+          echo 'output from step1::>> ${{steps.step-1.outputs }}'
+          echo 'output from step2::>> ${{steps.step-2.outputs }}'
+
+  run-dynamic-matrix-manually:
+    runs-on: ubuntu-latest
+    # strategy:
+    #   matrix:
+    #     os: ${{ fromJson(inputs.os) }}
+    #     node-version: ${{fromJson(inputs.node-version)}}
+    steps:
+      - name: generate matrix array from inputs
+        uses: actions/@github-script@v7
+        with:
+          script: |
+            console.log("to do")
+
       - name: print node version
         run: node -v
 
       - uses: actions/setup-node@v4
         with:
-          node-version: ${{matrix.node-version}}
+          node-version: 20
       - name: print node version after matrix
         run: node -v
       - name: print inputs
