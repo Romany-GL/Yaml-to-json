@@ -1,6 +1,6 @@
 # include will allow us to modify the exisiting combination if the key matched, or add a new combination if not matched
 
-name: Advanced-Matrix-configuration
+name: Matrix-Advanced-configuration
 on: [pull_request]
 jobs:
   run-multi-dimension-matrix:

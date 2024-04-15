@@ -1,0 +1,89 @@
+# This WF will trigger manually (workflow_dispatch), and inputs are avialable in the GH UI
+# Inputs are defined and has a type of string and default values
+# We need to create arrays from the string inputs and generate the matrix form the these arrays
+# We have two options: 1- manually create arrays as outputs 2- use actions to write javascript script and create arrays
+# This WF has three jobs: 1- example of create outputs from inputs manaully  2- create arrays by actios 3- create the matrix
+# to create arrays from the inputs using actions:
+# 1 -  we use the @actions/github-script@v7 to return an object { os: [ubuntu-latest, macos-latest], node_version: [18,20]} from the inputs
+# 2-   We map the outputs from the step above to the whole job by using `outputs` key, so we can access it in the create-matrix job
+# 3-   Then we use the outputs in the create-matrix by ${{needs}} context to create the matrix
+
+name: matrix-dynamic
+on:
+  workflow_dispatch:
+    inputs:
+      os:
+        type: string
+        required: true
+        default: 'ubuntu-latest,macos-latest,windows-latest'
+        description: os to run the job
+      node-version:
+        type: string
+        required: true
+        default: '18,20'
+
+jobs:
+  prepare-matrix-array-manually:
+    runs-on: ubuntu-latest
+    steps:
+      # create an output from this step and write it to the $GITHUB_OUTPUT, so we can access it in steps.outputs:
+      # this step will create an output step-output with value= somevalue, and we can acess it from steps.outputs:
+
+      - name: prepare matrix array manually-example
+        id: step-1
+        run: echo "step-output=someValue" >> $GITHUB_OUTPUT
+      - name: prepare matrix array manually
+        id: step-2
+        run: echo "step-output2=someValue2" >> $GITHUB_OUTPUT
+      - name: print outputs from steps
+        run: |
+          echo 'output from step1::>> ${{steps.step-1.outputs.step-output }}'
+          echo 'output from step2::>> ${{steps.step-2.outputs.step-output2 }}'
+
+  prpeare-matrix-array-by-actions:
+    runs-on: ubuntu-latest
+    # map outputs from the step arrays-from-inputs to whole job so we can use it in the next job to create the matrix
+    outputs:
+      matrix-arrays: ${{steps.array-from-inputs.outputs.result}}
+    steps:
+      - name: generate matrix array from inputs
+        uses: actions/github-script@v7
+        id: array-from-inputs
+        with:
+          script: |
+            console.log("context::>>", context);
+            const os = context.payload.inputs['os'].split(',');
+            const node_version = context.payload.inputs['node-version'].split(',');
+            console.log("os", os);
+            console.log("node-version", node_version);
+            return  { os: os , node_version: node_version};
+          result-encoding: json
+
+      - name: print outcome from actions
+        run: echo "outputs:::>>> ${{steps.array-from-inputs.outputs.result}}"
+
+      - name: print-context
+        run: echo '$context.payload'
+
+      - name: print node version
+        run: node -v
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: print node version after matrix
+        run: node -v
+      - name: print inputs
+        run: echo "inputs :::>>>" ${{toJson(inputs.node-version)}}
+
+  create-matrix:
+    needs: prpeare-matrix-array-by-actions
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ${{ fromJson(needs.prpeare-matrix-array-by-actions.outputs.matrix-arrays).os }}
+        node_version: ${{fromJson(needs.prpeare-matrix-array-by-actions.outputs.matrix-arrays).node_version}}
+    steps:
+      - name: print matrix
+        run: echo "matrix::>> ${{toJson(matrix)}}"

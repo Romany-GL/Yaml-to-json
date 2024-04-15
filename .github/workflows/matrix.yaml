@@ -4,7 +4,7 @@
 # Docs: https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
 
 # fail-fast on the strategy/matrix will affect if the next job shuold run if failed or not.
-name: use Matrix to run jobs
+name: Matrix basic
 on: [push]
 jobs:
   run-job-using-node-matrix:

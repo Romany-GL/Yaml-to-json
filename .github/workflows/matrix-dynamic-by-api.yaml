@@ -1,0 +1,42 @@
+# this workflow will dynamically create matrix by calling the GH REST API (on: repository_dispatch)
+
+name: matrix-dynamic-by-call-api
+on:
+  repository_dispatch:
+    types:
+      - triger-matrix-by-api
+jobs:
+  create-matrix-from-payload:
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: ${{github.event.client_payload.os}}
+        node_version: ${{ github.event.client_payload.node_version}}
+        include:
+          - os: macos-latest
+            is-mac: true
+          - os: ubuntu-latest
+            is-ubuntu: true
+          - os: windows-latest
+            node_version: 16
+            is-windows: true
+    steps:
+      - name: print-node-version-before-matrix
+        run: node -v
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{matrix.node_version}}
+
+      - name: print-node-version-after-matrix
+        run: node -v
+
+      - name: print system info if mac
+        if: ${{matrix.is-mac}}
+        run: System_profiler SPSoftwareDataType SPHardwareDataType
+
+      - name: print system info if windows
+        if: ${{matrix.is-windows}}
+        run: |
+          whoami
+          systeminfo
