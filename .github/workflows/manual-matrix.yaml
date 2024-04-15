@@ -26,11 +26,11 @@ jobs:
         run: echo "step-output=someValue" >> $GITHUB_OUTPUT
       - name: prepare matrix array manually
         id: step-2
-        run: echo "step-output=someValue2" >> $GITHUB_OUTPUT
+        run: echo "step-output2=someValue2" >> $GITHUB_OUTPUT
       - name: print outputs from steps
         run: |
-          echo 'output from step1::>> ${{steps.step-1.outputs }}'
-          echo 'output from step2::>> ${{steps.step-2.outputs }}'
+          echo 'output from step1::>> ${{steps.step-1.outputs.step-output }}'
+          echo 'output from step2::>> ${{steps.step-2.outputs.step-output2 }}'
 
   run-dynamic-matrix-manually:
     runs-on: ubuntu-latest
