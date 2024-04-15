@@ -1,0 +1,39 @@
+# trigger a WF by calling the GH REST API and send the matrix in the payload
+
+name: manul trigger matrix
+on:
+  workflow_dispatch:
+    inputs:
+      os:
+        type: choice
+        required: true
+        default: ubuntu-latest
+        description: os to run the job
+        options:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+      node_version:
+        type: choice
+        required: true
+        default: '18'
+        options:
+          - 18
+          - 20
+
+jobs:
+  run-dynamic-matrix-manually:
+    runs-on: ${{matrix.os }}
+    strategy:
+      matrix:
+        os: ${{inputs.os}}
+        node_version: ${{inputs.node_version}}
+    steps:
+      - name: print node version
+        run: node -v
+
+      - uses: actions/setup-node@v4
+        with:
+          node_version: ${{matrix.node_version}}
+      - name: print node version after matrix
+        run: node -v
