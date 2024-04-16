@@ -1,0 +1,27 @@
+# concurrency is used to ensure that only one job is running at the same time
+# useful for deploying to environment, to ensure one WF deploy is running at the same time.
+# add a concurrency key on the workflow/job/step level to ensure on instance is running
+# add cancel-in-progress key to cancel the current running instance and run the latest one
+# Docs: https://docs.github.com/en/actions/using-jobs/using-concurrency
+name: Concurrency-1
+run-name: Concurrency1-${{inputs.environment_input}}
+concurrency:
+  group: ${{github.workflow}}-${{inputs.environment_input}}-concurrency
+  cancel-in-progress: true
+on:
+  workflow_dispatch:
+    inputs:
+      environment_input:
+        type: environment
+        description: envirornement to deploy
+        required: true
+jobs:
+  sleep-and-deploy-to-some-environment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: delay 5 seconds
+        run: sleep 5
+      - name: deploying to environment
+        run: echo "deploying to ${{inputs.environment_input}}"
+      - name: log-githhub-context
+        run: echo "github:::::>>> ${{toJson(github)}}"
