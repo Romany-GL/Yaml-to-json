@@ -1,6 +1,7 @@
 name: Concurrency-2
 concurrency:
   group: ${{github.workflow}}-${{inputs.environment_input}}-concurrency
+  cancel-in-progress: true
 on:
   workflow_dispatch:
     inputs:

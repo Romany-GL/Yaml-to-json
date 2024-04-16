@@ -1,0 +1,24 @@
+name: use reusable wf from another repo
+on: 
+    workflow_dispatch:
+     inputs:
+        name: 
+            type: string
+            required: true
+            default: Romany
+            description: Write your name 
+jobs:
+   call-reusable-wf:
+        uses: Romany-GL/reusable-wf-repo/.github/workflows/reusable.yaml@main
+        with:
+            name: ${{inputs.name}}
+        secrets:
+            custom-token: ${{secrets.CUSTOM_TOKEN}}
+   log-inputs-in-repo:
+     runs-on: ubuntu-latest
+     steps:
+       - name: log inputs from the wf
+         run: echo 'Inputs from repo:>' ${{inputs.name}}
+         
+       - name: log secretes in repo
+         run: echo ${{secrets.CUSTOM_TOKEN}}
