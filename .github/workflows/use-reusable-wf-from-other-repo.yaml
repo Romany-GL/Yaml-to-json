@@ -7,6 +7,8 @@ on:
             required: true
             default: Romany
             description: Write your name 
+ # this job uses the reusable WF from the reusable-wf-repo @main branch, it doesn't have a runs-on key or steps because they are defined on the reusable WF
+ # The `uses` key will be defined on the job level not on the step level as we do in actions  
 jobs:
    call-reusable-wf:
         uses: Romany-GL/reusable-wf-repo/.github/workflows/reusable.yaml@main
@@ -19,6 +21,16 @@ jobs:
      steps:
        - name: log inputs from the wf
          run: echo 'Inputs from repo:>' ${{inputs.name}}
-         
+
        - name: log secretes in repo
-         run: echo ${{secrets.CUSTOM_TOKEN}}
+         run: echo "${{secrets.CUSTOM_TOKEN}}"
+
+   log-outputs-from-reusable-repo:
+      runs-on: ubuntu-latest
+      needs: call-reusable-wf
+      steps:
+        - name: print-outputs-from-reusable-wf-in-other-repo
+          run: |
+            echo "welcome " ${{needs.call-reusable-wf.outputs.firstName}}
+
+           

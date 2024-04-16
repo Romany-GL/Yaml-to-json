@@ -1,0 +1,14 @@
+# tihsis simple reusable WF
+# look at file use-reusable-wf-from-sam-repo at step use-reusable-simple-wf to see how to reference it
+
+name: simple-reusable-wf
+on: [workflow_call]
+jobs:
+    checkout:
+       runs-on: ubuntu-latest
+       steps:
+        - uses: actions/checkout@v4
+        - name: list files
+          run: ls -a 
+        
+    

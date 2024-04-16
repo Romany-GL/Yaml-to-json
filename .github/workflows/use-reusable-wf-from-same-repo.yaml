@@ -1,0 +1,26 @@
+# this wf will use a reusable wf from the same repo
+name: use reusable workflow from same repo
+on: 
+    workflow_dispatch:
+        inputs:
+            name:
+                type: string
+                default: Rooma
+                required: true
+jobs:
+    use-reusable-simple-wf:
+        uses: ./.github/workflows/reusable-wf-simple.yaml
+    use-reusable-wf:
+        needs: use-reusable-simple-wf
+        uses: ./.github/workflows/reusable-wf.yaml
+        with:
+            name: ${{inputs.name}}
+        secrets:
+            custom-token: ${{secrets.CUSTOM_TOKEN}}    
+    print-outputs:
+        runs-on: ubuntu-latest
+        needs: use-reusable-wf
+        steps:
+            - name: print output from reusble WF
+              run: |
+               echo ${{toJson(needs.use-reusable-wf.outputs.user-object) }}
