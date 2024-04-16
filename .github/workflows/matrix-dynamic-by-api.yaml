@@ -1,3 +1,6 @@
+# event repoistory_dispatch to trigger WF by GH Restful API
+# types: must match the event_type sent in the post request
+# token used in the API call must have content write access
 # this workflow will dynamically create matrix by calling the GH REST API (on: repository_dispatch)
 
 name: matrix-dynamic-by-call-api
@@ -40,3 +43,15 @@ jobs:
         run: |
           whoami
           systeminfo
+
+#  event_type sent in the post request must match types key defined in the WF to trigger the WF
+#  token used in the API call must have content write access
+# https://api.github.com/repos/Romany-GL/yaml-to-json/dispatches
+# payload:
+#     {
+#         "event_type": "triger-matrix-by-api",
+#         "client_payload": {
+#           "os": ["ubuntu-latest","macos-latest"],
+#           "node_version" : ["18","20"]
+#         }
+#       }

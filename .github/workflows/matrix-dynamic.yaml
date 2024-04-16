@@ -1,6 +1,6 @@
 # This WF will trigger manually (workflow_dispatch), and inputs are avialable in the GH UI
 # Inputs are defined and has a type of string and default values
-# We need to create arrays from the string inputs and generate the matrix form the these arrays
+# We need to create arrays from the string inputs and generate the matrix form these arrays
 # We have two options: 1- manually create arrays as outputs 2- use actions to write javascript script and create arrays
 # This WF has three jobs: 1- example of create outputs from inputs manaully  2- create arrays by actios 3- create the matrix
 # to create arrays from the inputs using actions:
@@ -31,10 +31,16 @@ jobs:
 
       - name: prepare matrix array manually-example
         id: step-1
+        # write step-out:someValue to the GH Output file, this will be accessible from the the step outputs
         run: echo "step-output=someValue" >> $GITHUB_OUTPUT
-      - name: prepare matrix array manually
-        id: step-2
-        run: echo "step-output2=someValue2" >> $GITHUB_OUTPUT
+      - name: prepare matrix array manually-example2
+        id:
+          step-2
+          # write step-out2:someValue2 to the GH Output file, this will be accessible from the the step outputs
+        run:
+          echo "step-output2=someValue2" >> $GITHUB_OUTPUT
+
+          # access value saved as output by step id
       - name: print outputs from steps
         run: |
           echo 'output from step1::>> ${{steps.step-1.outputs.step-output }}'
@@ -42,13 +48,14 @@ jobs:
 
   prpeare-matrix-array-by-actions:
     runs-on: ubuntu-latest
-    # map outputs from the step arrays-from-inputs to whole job so we can use it in the next job to create the matrix
+    # map outputs from the step arrays-from-inputs to whole job, so we can use it in the next job to create the matrix
     outputs:
       matrix-arrays: ${{steps.array-from-inputs.outputs.result}}
     steps:
       - name: generate matrix array from inputs
         uses: actions/github-script@v7
         id: array-from-inputs
+        # context is the object aviailable from the actions/github-script@v7
         with:
           script: |
             console.log("context::>>", context);
@@ -58,7 +65,7 @@ jobs:
             console.log("node-version", node_version);
             return  { os: os , node_version: node_version};
           result-encoding: json
-
+      # data returned from the script above will be accessible as outputs from the step by id
       - name: print outcome from actions
         run: echo "outputs:::>>> ${{steps.array-from-inputs.outputs.result}}"
 
@@ -68,22 +75,26 @@ jobs:
       - name: print node version
         run: node -v
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
       - name: print node version after matrix
         run: node -v
       - name: print inputs
         run: echo "inputs :::>>>" ${{toJson(inputs.node-version)}}
 
   create-matrix:
+    # ensure the previous step is completed, so we can use the outputs to create the matrix
+    # to access previous step outputs, we use the `needs` GH context.
+    # we use the GH function fromJson to create an object from the outputs and access the keys.
     needs: prpeare-matrix-array-by-actions
-    runs-on: ubuntu-latest
+    runs-on: ${{matrix.os}}
     strategy:
       fail-fast: false
       matrix:
         os: ${{ fromJson(needs.prpeare-matrix-array-by-actions.outputs.matrix-arrays).os }}
         node_version: ${{fromJson(needs.prpeare-matrix-array-by-actions.outputs.matrix-arrays).node_version}}
     steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{matrix.node_version}}
+
       - name: print matrix
         run: echo "matrix::>> ${{toJson(matrix)}}"
