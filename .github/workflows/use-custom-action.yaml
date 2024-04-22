@@ -1,0 +1,18 @@
+# in this workflow we use the custom action created in the repo custom-action
+# we need to specify a release version @v1.2
+name: use custom action
+on:
+  workflow_dispatch:
+    inputs:
+      name-to-greet:
+        type: string
+        required: true
+        description: write the name you want to greet
+jobs:
+  greet-person:
+    runs-on: ubuntu-latest
+    steps:
+      - name: print greeting use custom action
+        uses: Romany-GL/custom-action@v1.2
+        with:
+          your-name: ${{inputs.name-to-greet}}

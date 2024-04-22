@@ -1,6 +1,6 @@
 # concurrency is used to ensure that only one job is running at the same time
 # useful for deploying to environment, to ensure one WF deploy is running at the same time.
-# add a concurrency key on the workflow/job/step level to ensure on instance is running
+# add a concurrency key on the workflow/job/step level to ensure one instance is running
 # add cancel-in-progress key to cancel the current running instance and run the latest one
 # Docs: https://docs.github.com/en/actions/using-jobs/using-concurrency
 name: Concurrency-1
