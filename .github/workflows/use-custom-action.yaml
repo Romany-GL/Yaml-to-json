@@ -13,6 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: print greeting use custom action
-        uses: Romany-GL/custom-actions@v1.2
+        uses: Romany-GL/custom-actions@v1.3
         with:
           your-name: ${{inputs.name-to-greet}}
