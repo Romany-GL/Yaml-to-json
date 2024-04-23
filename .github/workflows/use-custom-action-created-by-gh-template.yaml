@@ -1,4 +1,6 @@
 name: use custom action created by tempalte
+env:
+  my-token: ${{secrets.GITHUB_TOKEN}}
 on:
   workflow_dispatch:
     inputs:
@@ -7,17 +9,36 @@ on:
         required: true
         default: 1000
         description: 'Milliseconds bdfore run the action'
-      your-name:
+      title:
         type: string
         required: true
-        default: Romany Sefen
-        description: name used for the greeting msg
+        description: 'Title of the Issue'
+      body:
+        type: string
+        required: true
+        description: 'body of the Issue'
+      assignees:
+        type: string
+        description: 'Issue assignees'
+      token:
+        type: string
+        required: true
+        default: '123'
+
 jobs:
   use-action:
+    permissions:
+      issues: write
     runs-on: ubuntu-latest
     steps:
       - uses: RomanyU1662160/action-with-js-template@v1.1
         id: action-step
+        with:
+          title: ${{inputs.title}}
+          body: ${{inputs.body}}
+          millisecondes: ${{inputs.millisecondes}}
+          assigness: ${{inputs.assignees}}
+
       - name: print outputs from action
         run: |
           echo "Greeting message from action output::::>>>> ${{steps.action-step.outputs.GreetingMsg}}"
