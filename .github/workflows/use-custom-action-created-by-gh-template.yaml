@@ -16,7 +16,7 @@ jobs:
   use-action:
     runs-on: ubuntu-latest
     steps:
-      - uses: RomanyU1662160/action-with-js-template@v1.0
+      - uses: RomanyU1662160/action-with-js-template@v1.1
         id: action-step
       - name: print outputs from action
         run: |
