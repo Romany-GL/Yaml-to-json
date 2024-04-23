@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/composite-action/action.yaml
+      - uses: ./.github/actions/composite-action
         id: use-custom-composite-action
         with:
           who-to-greet: ${{inputs.your-name}}
