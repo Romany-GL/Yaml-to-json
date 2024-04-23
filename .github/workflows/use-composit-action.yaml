@@ -1,0 +1,20 @@
+name: use-composite-action
+on:
+  workflow_dispatch:
+    inputs:
+      your-name:
+        type: string
+        default: romany sefen
+        required: true
+jobs:
+  use-of-composite-action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: .github/actions/composite-action/action.yaml
+        id: use-custom-composite-action
+        with:
+          who-to-greet: ${{inputs.your-name}}
+      - name: print random number from custom action
+        shell: bash
+        run: echo "out put ${{steps.use-custom-composite-action.outputs }}"
