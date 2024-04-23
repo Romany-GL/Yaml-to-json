@@ -38,6 +38,7 @@ jobs:
           body: ${{inputs.body}}
           millisecondes: ${{inputs.millisecondes}}
           assigness: ${{inputs.assignees}}
+          token: ${{secrets.GITHUB_TOKEN}}
 
       - name: print outputs from action
         run: |
