@@ -19,6 +19,4 @@ jobs:
       - uses: RomanyU1662160/action-with-js-template@v1.0
         id: action-step
       - name: print outputs from action
-        run: |
-          echo "Greeting message from action output::::>>>>" ${{steps.action-step.outputs.GreetingMsg}}
-          echo "Time from action output:::::>>>>" ${{steps.action-step.outputs.time}}
+        run: echo "TEST"
