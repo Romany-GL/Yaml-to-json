@@ -31,7 +31,7 @@ jobs:
       issues: write
     runs-on: ubuntu-latest
     steps:
-      - uses: RomanyU1662160/action-with-js-template@v1.1
+      - uses: RomanyU1662160/action-with-js-template@v1.2
         id: action-step
         with:
           title: ${{inputs.title}}
