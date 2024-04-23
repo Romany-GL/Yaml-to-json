@@ -17,4 +17,4 @@ jobs:
           who-to-greet: ${{inputs.your-name}}
       - name: print random number from custom action
         shell: bash
-        run: echo "out put ${{steps.use-custom-composite-action.outputs }}"
+        run: echo "out put ${{steps.use-custom-composite-action.outputs.random-number }}"
