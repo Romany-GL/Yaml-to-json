@@ -1,3 +1,6 @@
+# in this WF we use the composite action in the actions folder, we reference it in the uses step
+# We also printed the putput from the action "random-number'"
+# Before we  use the action we use actions/chekcout@v4 to clone the files
 name: use-composite-action
 on:
   workflow_dispatch:

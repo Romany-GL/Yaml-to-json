@@ -1,3 +1,5 @@
+# composite action is a custom action to group steps in one action and then reuse it
+# To create a composite action we add the 'runs'->'using' keys with the value composite and then define the steps in the steps key
 name: example-of-composite-action
 description: 'An example of a composite action'
 inputs: 

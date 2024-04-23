@@ -1,0 +1,24 @@
+name: use custom action created by tempalte
+on:
+  workflow_dispatch:
+    inputs:
+      millisecondes:
+        type: number
+        required: true
+        default: 1000
+        description: 'Milliseconds bdfore run the action'
+      your-name:
+        type: string
+        required: true
+        default: Romany Sefen
+        description: name used for the greeting msg
+jobs:
+  use-action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: RomanyU1662160/action-with-js-template@v1
+        id: action-step
+      - name: print outputs from action
+        run: |
+          echo "Greeting message from action output::::>>>>" ${{steps.action-step.outputs.GreetingMsg}}
+          echo "Time from action output:::::>>>>" ${{steps.action-step.outputs.time}}
