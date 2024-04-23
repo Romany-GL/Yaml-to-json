@@ -37,7 +37,7 @@ jobs:
           title: ${{inputs.title}}
           body: ${{inputs.body}}
           milliseconds: ${{inputs.milliseconds}}
-          assigness: ${{inputs.assignees}}
+          assignees: ${{inputs.assignees}}
           token: ${{secrets.GITHUB_TOKEN}}
 
       - name: print outputs from action
