@@ -1,0 +1,29 @@
+name: example-of-composite-action
+description: 'An example of a composite action'
+inputs: 
+   who-to-greet:
+    required: true
+    description: 'Who to greet'
+    default: 'World'
+outputs: 
+  random-number:
+    description: 'A random'
+    value: 'some value'
+runs:
+  using: composite
+  steps:
+    - name: 'Print greeting'
+      run: echo "Hello, ${{ inputs.who-to-greet }}" 
+      shell: bash
+    - name : "Generate random number"
+      id: random-number
+      shell: bash 
+      run: echo " random-number=$(echo $Random)" >> $GITHUB_OUTPUT
+    - name: Set GetHub Path
+      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH 
+      shell: bash
+      env:
+        $GITHUB_ACTION_PATH: ${{ github.action_path}}
+    - name: run good bye script 
+      shell: bash
+      run: .git/actions/composite-action/goodbye.sh  
