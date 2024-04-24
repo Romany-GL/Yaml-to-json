@@ -1,4 +1,4 @@
-name: use custom action created by tempalte
+name: use custom action created by template
 env:
   my-token: ${{secrets.GITHUB_TOKEN}}
 on:
